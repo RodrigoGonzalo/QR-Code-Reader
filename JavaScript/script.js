@@ -14,21 +14,21 @@ CopyButton.addEventListener("click", () => {
 })
 
 FileInput.addEventListener("change", e => {
-    let File = e.target.files[0]; // User selected file.
-    if(!File) return;
-    let FormData = new formData(); // Creating a Form Data object.
-    FormData.append("file", file);
-    fetchRequest(FormData, file);
+    let file = e.target.files[0]; // User selected file.
+    if(!file) return;
+    let formData = new FormData(); // Creating a Form Data object.
+    formData.append("file", file);
+    fetchRequest(formData, file);
 });
 
-function fetchRequest(FormData, file){
+function fetchRequest(formData, file){
     TextInfo.innerText = "Scanning QR Code..."
     /*
         Sending the post request to the QR Server API with passing form data as body 
         and getting a response form the server.
     */
     fetch("http://api.qrserver.com/v1/read-qr-code/", {
-        method: "POST", body: FormData
+        method: "POST", body: formData
     }).then(res => res.json()).then(result => {
         result = result[0].symbol[0].data;
         if(!result) return;
